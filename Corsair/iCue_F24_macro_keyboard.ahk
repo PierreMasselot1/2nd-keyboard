@@ -370,6 +370,7 @@ F23::tooltip, media_next mapped to %A_thishotKey%
 setupPlanitWorkSpace()
 {
 	createVirtualDesktop()
+	Run, "C:\Users\Pierre Masselot\AppData\Local\Programs\Microsoft VS Code\Code.exe"
 
 }
 
