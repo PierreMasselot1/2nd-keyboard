@@ -278,7 +278,7 @@ SendMode Input
 	numpadDiv::
 	numpadMult::
 	numpadSub::closeCurrentVirtualDesktop()
-	numpadAdd::
+	numpadAdd::createVirtualDesktop()
 	numpadEnter::
 		numpadDot::tooltip, [F24] %A_thishotKey%
 
@@ -370,7 +370,29 @@ F23::tooltip, media_next mapped to %A_thishotKey%
 setupPlanitWorkSpace()
 {
 	createVirtualDesktop()
-	Run, "C:\Users\Pierre Masselot\AppData\Local\Programs\Microsoft VS Code\Code.exe"
+	Run cmd /c wsl
+	Sleep 500
+	Send, cd ~/projects/planit && code .{Enter}
+	Sleep, 5000 ;;wait for vscode to launch
+	Send, #{Up}
+	Send, ^~ ;;open terminal
+	Sleep, 500
+	Send, docker-compose up db{Enter}
+	Sleep, 500
+	Send, ^+~ ;;open terminal
+	Sleep, 500
+
+	Send, cd web && npm run start{Enter}
+	Sleep, 500
+
+	Send, ^+~ ;;open terminal
+	Sleep, 500
+
+	Send, cd backend && npm run start{Enter}
+	Sleep, 500
+
+	return
+
 
 }
 
