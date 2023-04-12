@@ -38,15 +38,19 @@ setupPlanitWorkSpace()
         WinWait, ahk_exe chrome.exe, New Tab
         WinActivate, ahk_exe chrome.exe, New Tab
         Send, https://chat.openai.com{Enter}
-        WinWait, ahk_exe chrome.exe, Chat with GPT- - Google Chrome
-        WinGet, chatgpt_win_id, ID, ahk_exe chrome.exe, Chat with GPT- - Google Chrome
-        SysGet, monitor_width, MonitorWorkArea, 3
-        WinMove, ahk_id %chatgpt_win_id%,, %monitor_width%, 0, %monitor_width%, A_ScreenHeight
+        WinWait, ahk_exe chrome.exe, New chat - Google Chrome
+        WinGet, chatgpt_win_id, ID, ahk_exe chrome.exe, New chat - Google Chrome
+        ;; Check if chatgpt_win_id contains a valid window handle
+        if (chatgpt_win_id) {
+            SysGet, monitor_width, MonitorWorkArea, 3
+            ;; Set the X, Y, Width, and Height parameters correctly
+            WinMove, ahk_id %chatgpt_win_id%,, %monitor_width%, 0, %monitor_width%, A_ScreenHeight
+        }
+        else{
+            MsgBox, 16, Error, No chatgpt_win_id!
+        }
     }
-    else if (monitor_count > 1) {
-        SysGet, monitor_width, MonitorWorkArea, 1
-        WinMove, ahk_id %chrome_win_id%,, 0, 0, %monitor_width%, A_ScreenHeight
-    }
+
     WinMaximize, ahk_id %chrome_win_id%
 
     return

@@ -6,11 +6,10 @@ createVirtualDesktop(){
 	Send, #^d
 }
 
-closeCurrentVirtualDesktop(){
-	;; Get the virtual desktop ID of the current desktop
-	GroupAdd, desktop_group, ahk_exe explorer.exe
-	virtual_desktop_id := DllCall("GetCurrentDesktopId", "Ptr")
-
-	;; Close all windows on the current desktop
-	WinClose, ahk_group desktop_group
+closeCurrentVirtualDesktop() {
+	;;Close all windows on current virtual desktop
+	WinClose, ahk_group VirtualDesktop%d%
+	 ;; Switch to the previous virtual desktop
+	Send, #^{F4}
+	return
 }
