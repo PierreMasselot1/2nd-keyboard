@@ -1,3 +1,5 @@
+#Include setupWorkSpace.ahk
+#Include virtualDesktopManagement.ahk
 #NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
 ;SetWorkingDir, C:\AHK\2nd-keyboard\ ;Or you could put the directory here. Whatevs.
@@ -366,39 +368,3 @@ F23::tooltip, media_next mapped to %A_thishotKey%
 ;;~~~~~~~~~~~~~~~~~DEFINE YOUR FUNCTIONS BELOW THIS LINE~~~~~~~~~~~~~~~~~~~~~~~
 ;;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ;;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-setupPlanitWorkSpace()
-{
-	createVirtualDesktop()
-	Run cmd /c wsl
-	Sleep 500
-	Send, cd ~/projects/planit && code .{Enter}
-	Sleep, 5000 ;;wait for vscode to launch
-	Send, #{Up}
-	Send, ^~ ;;open terminal
-	Sleep, 500
-	Send, docker-compose up db{Enter}
-	Sleep, 500
-	Send, ^+~ ;;open terminal
-	Sleep, 500
-
-	Send, cd web && npm run start{Enter}
-	Sleep, 500
-
-	Send, ^+~ ;;open terminal
-	Sleep, 500
-
-	Send, cd backend && npm run start{Enter}
-	Sleep, 500
-
-	return
-
-
-}
-
-createVirtualDesktop(){
-	Send, #^d
-}
-closeCurrentVirtualDesktop(){
-	Send, #^{F4}
-}
